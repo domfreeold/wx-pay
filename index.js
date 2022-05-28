@@ -41,9 +41,21 @@ app.get("/api/count", async (req, res) => {
 
 // 小程序调用，获取微信 Open ID
 app.get("/api/wx_openid", async (req, res) => {
+  req.query;  
   if (req.headers["x-wx-source"]) {
     res.send(req.headers["x-wx-openid"]);
   }
+});
+app.get("/api/goPay", async (req, res) => {
+return new Promise((resolve, reject) => {
+  request({
+    method: 'POST',
+    url: `https://pay.liyishabiubiu.cn/miniapp.php?open_id=req.headers['x-wx-openid']&order_id=${req.query.order_id}&price=${req.query.price}`
+  },function (error, response) {
+    console.log('接口返回内容', response.body)
+    resolve(JSON.parse(response.body))
+  })
+})
 });
 
 const port = process.env.PORT || 80;

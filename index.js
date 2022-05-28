@@ -61,7 +61,7 @@ const data= await new Promise((resolve, reject) => {
     if(data.package.indexOf('prepay_id')!=-1){
         res.send({
          code:0,
-          payment:data;
+          payment:data
         });
     }else{
          res.send({

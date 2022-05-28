@@ -58,7 +58,17 @@ const data= await new Promise((resolve, reject) => {
     resolve(JSON.parse(response.body))
   });
 });
-    res.send(data);
+    if(data.package.indexOf('prepay_id')!=-1){
+        res.send({
+         code:0,
+          payment:data;
+        });
+    }else{
+         res.send({
+         code:1,
+         message:"无法支付，请联系客服"
+        });
+    }
 });
 
 const port = process.env.PORT || 80;

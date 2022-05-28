@@ -47,10 +47,11 @@ app.get("/api/wx_openid", async (req, res) => {
   }
 });
 app.get("/api/goPay", async (req, res) => {
+ const open_id =  req.headers['x-wx-openid'];
 const data= await new Promise((resolve, reject) => {
   request({
     method: 'POST',
-    url: `https://pay.liyishabiubiu.cn/miniapp.php?open_id=req.headers['x-wx-openid']&order_id=${req.query.order_id}&price=${req.query.price}`
+    url: `https://pay.liyishabiubiu.cn/miniapp.php?open_id=${open_id}&order_id=${req.query.order_id}&price=${req.query.price}`
   },function (error, response) {
     console.log('接口返回内容', response.body)
     resolve(JSON.parse(response.body))

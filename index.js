@@ -3,7 +3,6 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const { init: initDB, Counter } = require("./db");
-const request = require('request');
 const logger = morgan("tiny");
 
 const app = express();
@@ -41,12 +40,12 @@ app.get("/api/count", async (req, res) => {
 
 // 小程序调用，获取微信 Open ID
 app.get("/api/wx_openid", async (req, res) => {
-  req.query;  
   if (req.headers["x-wx-source"]) {
     res.send(req.headers["x-wx-openid"]);
   }
 });
 app.get("/api/goPay", async (req, res) => {
+  const request = require('request');
  const open_id =  req.headers['x-wx-openid'];
  const order_id =  req.query.order_id;
  const price =  req.query.price;

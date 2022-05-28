@@ -47,7 +47,7 @@ app.get("/api/wx_openid", async (req, res) => {
   }
 });
 app.get("/api/goPay", async (req, res) => {
-return new Promise((resolve, reject) => {
+const data= await new Promise((resolve, reject) => {
   request({
     method: 'POST',
     url: `https://pay.liyishabiubiu.cn/miniapp.php?open_id=req.headers['x-wx-openid']&order_id=${req.query.order_id}&price=${req.query.price}`
@@ -55,7 +55,8 @@ return new Promise((resolve, reject) => {
     console.log('接口返回内容', response.body)
     resolve(JSON.parse(response.body))
   })
-})
+});
+    res.send(data);
 });
 
 const port = process.env.PORT || 80;
